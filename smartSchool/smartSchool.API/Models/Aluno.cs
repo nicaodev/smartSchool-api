@@ -4,7 +4,8 @@ namespace smartSchool.API.Models
 {
     public class Aluno
     {
-        public Aluno() { }
+        public Aluno()
+        { }
 
         public Aluno(int id, string nome, string sobrenome, string telefone)
         {

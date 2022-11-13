@@ -9,6 +9,7 @@ namespace smartSchool.API.Controllers
         public ProfessorController()
         {
         }
+
         [HttpGet]
         public IActionResult Get()
         {
