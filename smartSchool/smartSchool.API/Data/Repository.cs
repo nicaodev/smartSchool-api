@@ -7,10 +7,12 @@ namespace smartSchool.API.Data
     public class Repository : IRepository
     {
         private readonly DataContext _c;
+
         public Repository(DataContext c)
         {
             _c = c;
         }
+
         public void Add<T>(T entity) where T : class
         {
             _c.Add(entity);
@@ -20,11 +22,11 @@ namespace smartSchool.API.Data
         {
             _c.Remove(entity);
         }
+
         public void Update<T>(T entity) where T : class
         {
             _c.Update(entity);
         }
-
 
         public Aluno[] GetAlunos(bool incluirProfessor)
         {
@@ -41,7 +43,7 @@ namespace smartSchool.API.Data
             return query.ToArray();
         }
 
-        public Aluno[] GetAlunosByDisciplinasId(int disciplinaId, bool incluirProfessor = false)
+        public Aluno[] GetAlunosByDisciplinasId(int disciplinaId, bool incluirProfessor)
         {
             IQueryable<Aluno> query = _c.Alunos;
 
@@ -58,7 +60,7 @@ namespace smartSchool.API.Data
             return query.ToArray();
         }
 
-        public Aluno GetAlunoById(int alunoId, bool incluirProfessor = false)
+        public Aluno GetAlunoById(int alunoId, bool incluirProfessor)
         {
             IQueryable<Aluno> query = _c.Alunos;
 
@@ -75,7 +77,7 @@ namespace smartSchool.API.Data
             return query.FirstOrDefault();
         }
 
-        public Professor[] GetProfessores(bool incluiAlunos = false)
+        public Professor[] GetProfessores(bool incluiAlunos)
         {
             IQueryable<Professor> query = _c.Professores;
 
@@ -87,10 +89,9 @@ namespace smartSchool.API.Data
             }
             query = query.AsNoTracking().OrderBy(a => a.Id);
             return query.ToArray();
-
         }
 
-        public Professor[] GetProfessoresByDisciplinasId(int disciplinaId, bool incluirAlunos = false)
+        public Professor[] GetProfessoresByDisciplinasId(int disciplinaId, bool incluirAlunos)
         {
             IQueryable<Professor> query = _c.Professores;
 
@@ -105,12 +106,10 @@ namespace smartSchool.API.Data
                          .Where(a => a.Disciplinas.Any(d => d.AlunosDisciplinas.Any(e => e.DisciplinaId == disciplinaId)));
 
             return query.ToArray();
-
         }
 
-        public Professor GetProfessoreById(int professorId, bool incluirAluno = false)
+        public Professor GetProfessoreById(int professorId, bool incluirAluno)
         {
-
             IQueryable<Professor> query = _c.Professores;
 
             if (incluirAluno)
@@ -122,7 +121,6 @@ namespace smartSchool.API.Data
             query = query.AsNoTracking().OrderBy(a => a.Id).Where(prof => prof.Id == professorId);
 
             return query.FirstOrDefault();
-
         }
 
         public bool SaveChanges()
