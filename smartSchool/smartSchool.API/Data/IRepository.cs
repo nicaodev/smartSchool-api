@@ -16,8 +16,8 @@ namespace smartSchool.API.Data
 
         // Escopo Professor
 
-        Professor[] GetProfessores();
-        Professor[] GetProfessoresByDisciplinasId();
-        Professor GetGetProfessoreById();
+        Professor[] GetProfessores(bool incluiAlunos = false);
+        Professor[] GetProfessoresByDisciplinasId(int disciplinaId, bool incluirAluno = false);
+        Professor GetProfessoreById(int professorId, bool incluirAluno = false);
     }
 }

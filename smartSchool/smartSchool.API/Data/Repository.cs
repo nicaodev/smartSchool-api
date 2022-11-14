@@ -75,19 +75,54 @@ namespace smartSchool.API.Data
             return query.FirstOrDefault();
         }
 
-        public Professor[] GetProfessores()
+        public Professor[] GetProfessores(bool incluiAlunos = false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Professor> query = _c.Professores;
+
+            if (incluiAlunos)
+            {
+                query = query.Include(a => a.Disciplinas)
+                             .ThenInclude(b => b.AlunosDisciplinas)
+                             .ThenInclude(c => c.Aluno);
+            }
+            query = query.AsNoTracking().OrderBy(a => a.Id);
+            return query.ToArray();
+
         }
 
-        public Professor[] GetProfessoresByDisciplinasId()
+        public Professor[] GetProfessoresByDisciplinasId(int disciplinaId, bool incluirAlunos = false)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Professor> query = _c.Professores;
+
+            if (incluirAlunos)
+            {
+                query = query.Include(b => b.Disciplinas)
+                             .ThenInclude(c => c.AlunosDisciplinas)
+                             .ThenInclude(d => d.Aluno);
+            }
+            query = query.AsNoTracking()
+                         .OrderBy(a => a.Id)
+                         .Where(a => a.Disciplinas.Any(d => d.AlunosDisciplinas.Any(e => e.DisciplinaId == disciplinaId)));
+
+            return query.ToArray();
+
         }
 
-        public Professor GetGetProfessoreById()
+        public Professor GetProfessoreById(int professorId, bool incluirAluno = false)
         {
-            throw new System.NotImplementedException();
+
+            IQueryable<Professor> query = _c.Professores;
+
+            if (incluirAluno)
+            {
+                query = query.Include(a => a.Disciplinas)
+                             .ThenInclude(b => b.AlunosDisciplinas)
+                             .ThenInclude(c => c.Aluno);
+            }
+            query = query.AsNoTracking().OrderBy(a => a.Id).Where(prof => prof.Id == professorId);
+
+            return query.FirstOrDefault();
+
         }
 
         public bool SaveChanges()
