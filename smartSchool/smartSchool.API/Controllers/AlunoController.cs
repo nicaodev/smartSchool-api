@@ -11,9 +11,11 @@ namespace smartSchool.API.Controllers
     public class AlunoController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly IRepository _repo;
 
-        public AlunoController(DataContext context)
+        public AlunoController(IRepository repo, DataContext context)
         {
+            _repo = repo;
             _context = context;
         }
 
@@ -46,8 +48,9 @@ namespace smartSchool.API.Controllers
         [HttpPost]
         public IActionResult Post(Aluno aluno)
         {
-            _context.Add(aluno);
-            _context.SaveChanges();
+            _repo.Add(aluno);
+            if (!_repo.SaveChanges()) return BadRequest("Aluno não cadastrado.");
+
             return Ok(aluno);
         }
 
@@ -57,8 +60,9 @@ namespace smartSchool.API.Controllers
             var retornaAluno = _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (retornaAluno == null) return BadRequest("O Aluno não encontrado.");
 
-            _context.Update(aluno);
-            _context.SaveChanges();
+            _repo.Update(aluno);
+            if (!_repo.SaveChanges()) return BadRequest("Aluno não atualizado.");
+
             return Ok(aluno);
         }
 
@@ -68,8 +72,9 @@ namespace smartSchool.API.Controllers
             var retornaAluno = _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (retornaAluno == null) return BadRequest("O Aluno não encontrado.");
 
-            _context.Update(aluno);
-            _context.SaveChanges();
+            _repo.Update(aluno);
+            if (!_repo.SaveChanges()) return BadRequest("Aluno não atualizado.");
+
             return Ok(aluno);
         }
 
@@ -79,9 +84,10 @@ namespace smartSchool.API.Controllers
             var aluno = _context.Alunos.AsNoTracking().FirstOrDefault(a => a.Id == id);
             if (aluno == null) return BadRequest("O Aluno não encontrado.");
 
-            _context.Remove(aluno);
-            _context.SaveChanges();
-            return Ok();
+            _repo.Delete(aluno);
+            if (!_repo.SaveChanges()) return BadRequest("Aluno não Deletado.");
+
+            return Ok("Aluno deletado.");
         }
     }
 }
