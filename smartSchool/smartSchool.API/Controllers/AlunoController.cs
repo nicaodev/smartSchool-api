@@ -24,7 +24,7 @@ namespace smartSchool.API.Controllers
         public IActionResult Get()
         {
             var alunos = _repo.GetAlunos(true);
-            return Ok(_mapper.Map<IEnumerable<AlunoDTO>>(alunos));
+            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
 
         [HttpGet("{id}")]
@@ -34,40 +34,47 @@ namespace smartSchool.API.Controllers
 
             if (aluno == null) return BadRequest("O Aluno não encontrado.");
 
-            return Ok(aluno);
+            var alunoDto = _mapper.Map<AlunoDto>(aluno);
+
+            return Ok(alunoDto);
         }
 
         [HttpPost]
-        public IActionResult Post(Aluno aluno)
+        public IActionResult Post(AlunoCadastroDto model)
         {
+            var aluno = _mapper.Map<Aluno>(model);
             _repo.Add(aluno);
             if (!_repo.SaveChanges()) return BadRequest("Aluno não cadastrado.");
 
-            return Ok(aluno);
+            return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Aluno aluno)
+        public IActionResult Put(int id, AlunoCadastroDto model)
         {
-            var retornaAluno = _repo.GetAlunoById(id, false);
-            if (retornaAluno == null) return BadRequest("O Aluno não encontrado.");
+            var aluno = _repo.GetAlunoById(id, false);
+            if (aluno == null) return BadRequest("O Aluno não encontrado.");
+
+            _mapper.Map(model, aluno);
 
             _repo.Update(aluno);
             if (!_repo.SaveChanges()) return BadRequest("Aluno não atualizado.");
 
-            return Ok(aluno);
+            return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, Aluno aluno)
+        public IActionResult Patch(int id, AlunoCadastroDto model)
         {
-            var retornaAluno = _repo.GetAlunoById(id, false);
-            if (retornaAluno == null) return BadRequest("O Aluno não encontrado.");
+            var aluno = _repo.GetAlunoById(id, false);
+            if (aluno == null) return BadRequest("O Aluno não encontrado.");
+
+            _mapper.Map(model, aluno);
 
             _repo.Update(aluno);
             if (!_repo.SaveChanges()) return BadRequest("Aluno não atualizado.");
 
-            return Ok(aluno);
+            return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
         }
 
         [HttpDelete("{id}")]

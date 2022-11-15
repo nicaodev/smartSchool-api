@@ -8,10 +8,18 @@ namespace smartSchool.API.Helpers
     {
         public SmartSchoolProfile()
         {
-            CreateMap<Aluno, AlunoDTO>()
+            CreateMap<Aluno, AlunoDto>()
                 .ForMember(
                 dest => dest.Nome,
-                opt => opt.MapFrom(aluno => $"{aluno.Nome} {aluno.Sobrenome}"));
+                opt => opt.MapFrom(aluno => $"{aluno.Nome} {aluno.Sobrenome}")
+                )
+                .ForMember(
+                dest => dest.Idade,
+                opt => opt.MapFrom(idade => idade.DataNasc.IdadeAtual())
+                );
+
+            CreateMap<AlunoDto, Aluno>();
+            CreateMap<Aluno, AlunoCadastroDto>().ReverseMap();
         }
     }
 }
