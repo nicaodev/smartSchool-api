@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>smartSchool.API</name>
+    </assembly>
+    <members>
+        <member name="T:smartSchool.API.Controllers.AlunoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:smartSchool.API.Controllers.AlunoController.Get">
+            <summary>
+            Retorna todos os alunos
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

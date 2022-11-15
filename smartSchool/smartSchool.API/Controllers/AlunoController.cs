@@ -6,7 +6,9 @@ using smartSchool.API.Models;
 using System.Collections.Generic;
 
 namespace smartSchool.API.Controllers
-{
+{/// <summary>
+/// 
+/// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class AlunoController : ControllerBase
@@ -19,14 +21,21 @@ namespace smartSchool.API.Controllers
             _repo = repo;
             _mapper = map;
         }
-
+        /// <summary>
+        /// Retorna todos os alunos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Get()
         {
             var alunos = _repo.GetAlunos(true);
             return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
-
+        /// <summary>
+        /// Método responsável por retornar apenas um único Aluno informando o ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

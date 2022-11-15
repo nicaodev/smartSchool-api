@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>smartSchool.API</name>
+    </assembly>
+    <members>
+        <member name="T:smartSchool.API.Controllers.AlunoController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:smartSchool.API.Controllers.AlunoController.Get">
+            <summary>
+            Retorna todos os alunos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:smartSchool.API.Controllers.AlunoController.GetById(System.Int32)">
+            <summary>
+            Método responsável por retornar apenas um único Aluno informando o ID
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="T:smartSchool.API.DTOs.AlunoDto">
+            <summary>
+            DTO para retorno de informações de Aluno.
+            </summary>
+        </member>
+        <member name="P:smartSchool.API.DTOs.AlunoDto.Nome">
+            <summary>
+            Nome do Aluno
+            </summary>
+        </member>
+    </members>
+</doc>

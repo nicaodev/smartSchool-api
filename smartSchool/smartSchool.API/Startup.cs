@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using smartSchool.API.Data;
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace smartSchool.API
 {
@@ -32,6 +34,22 @@ namespace smartSchool.API
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // Via refletion qual(is) classe : Profile para mapeamento.
 
             services.AddScoped<IRepository, Repository>();
+
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("SmartSchoolAPI",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "SmartSchool Api",
+                        Version = "1.0",
+                        TermsOfService = new Uri("https://github.com/nicaodev"),
+                        Description = "Descrição etc etc"
+                    });
+                var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
+
+                opt.IncludeXmlComments(xmlCommentsPath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +61,12 @@ namespace smartSchool.API
             }
 
             app.UseRouting();
+            app.UseSwagger().
+                UseSwaggerUI(opt =>
+                {
+                    opt.SwaggerEndpoint("/swagger/SmartSchoolAPI/swagger.json", "smartschoolapi");
+                    opt.RoutePrefix = "";
+                });
 
             //app.UseAuthorization();
 
