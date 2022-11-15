@@ -15,7 +15,6 @@ namespace smartSchool.API.Models
             this.Nome = nome;
             this.Registro = registro;
             this.Sobrenome = sobrenome;
-
         }
 
         public int Id { get; set; }

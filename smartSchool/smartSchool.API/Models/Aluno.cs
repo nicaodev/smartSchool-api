@@ -7,6 +7,7 @@ namespace smartSchool.API.Models
     {
         public Aluno()
         { }
+
         public Aluno(int id, int matricula, string nome, string sobrenome, string telefone, DateTime dataNasc)
         {
             Id = id;
@@ -16,8 +17,6 @@ namespace smartSchool.API.Models
             Telefone = telefone;
             DataNasc = dataNasc;
         }
-
-
 
         public int Id { get; set; }
         public string Nome { get; set; }

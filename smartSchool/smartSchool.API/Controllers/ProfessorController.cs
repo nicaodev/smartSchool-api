@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using smartSchool.API.Data;
 using smartSchool.API.Models;
-using System.Linq;
 
 namespace smartSchool.API.Controllers
 {
@@ -32,7 +30,6 @@ namespace smartSchool.API.Controllers
 
             return Ok(professor);
         }
-
 
         [HttpPost]
         public IActionResult Post(Professor professor)

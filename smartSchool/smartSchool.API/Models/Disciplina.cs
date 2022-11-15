@@ -24,10 +24,11 @@ namespace smartSchool.API.Models
 
         public int CursoId { get; set; }
         public Curso Curso { get; set; }
+
         // Auto relacionamento com disciplina
         public int? PrerequisitoId { get; set; } = null;
-        public Disciplina Prerequisito { get; set; }
 
+        public Disciplina Prerequisito { get; set; }
 
         public IEnumerable<AlunoDisciplina> AlunosDisciplinas { get; set; }
     }

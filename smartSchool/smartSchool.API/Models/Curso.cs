@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections.Generic;
 
 namespace smartSchool.API.Models
 {
@@ -8,7 +6,6 @@ namespace smartSchool.API.Models
     {
         public Curso()
         {
-
         }
 
         public Curso(int id, string nome)

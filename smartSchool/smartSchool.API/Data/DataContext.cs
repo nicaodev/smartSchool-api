@@ -20,7 +20,6 @@ namespace smartSchool.API.Data
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<Professor> Professores { get; set; }
 
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<AlunoDisciplina>()
@@ -45,7 +44,6 @@ namespace smartSchool.API.Data
                     new Curso(1,"Ciência da Computação"),
                     new Curso(2,"Engenharia da Computação"),
                     new Curso(3,"Recursos Humanos")
-
                 });
 
             builder.Entity<Disciplina>()

@@ -6,13 +6,12 @@ namespace smartSchool.API.Models
     {
         public AlunoCurso()
         {
-
         }
+
         public AlunoCurso(int alunoId, int cursoId)
         {
             AlunoId = alunoId;
             CursoId = cursoId;
-
         }
 
         public int AlunoId { get; set; }
@@ -23,4 +22,3 @@ namespace smartSchool.API.Models
         public DateTime? DataFim { get; set; } = null;
     }
 }
-
