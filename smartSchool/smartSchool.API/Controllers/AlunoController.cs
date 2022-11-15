@@ -4,6 +4,7 @@ using smartSchool.API.Data;
 using smartSchool.API.DTOs;
 using smartSchool.API.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace smartSchool.API.Controllers
 {/// <summary>
@@ -26,9 +27,9 @@ namespace smartSchool.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var alunos = _repo.GetAlunos(true);
+            var alunos = await _repo.GetAlunosAsync(true);
             return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
         }
         /// <summary>
@@ -37,9 +38,9 @@ namespace smartSchool.API.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var aluno = _repo.GetAlunoById(id, true);
+            var aluno = await _repo.GetAlunoByIdAsync(id, true);
 
             if (aluno == null) return BadRequest("O Aluno não encontrado.");
 
@@ -49,7 +50,7 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(AlunoCadastroDto model)
+        public async Task<IActionResult> Post(AlunoCadastroDto model)
         {
             var aluno = _mapper.Map<Aluno>(model);
             _repo.Add(aluno);
@@ -59,9 +60,9 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, AlunoCadastroDto model)
+        public async Task<IActionResult> Put(int id, AlunoCadastroDto model)
         {
-            var aluno = _repo.GetAlunoById(id, false);
+            var aluno = await _repo.GetAlunoByIdAsync(id, false);
             if (aluno == null) return BadRequest("O Aluno não encontrado.");
 
             _mapper.Map(model, aluno);
@@ -73,9 +74,9 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, AlunoCadastroDto model)
+        public async Task<IActionResult> Patch(int id, AlunoCadastroDto model)
         {
-            var aluno = _repo.GetAlunoById(id, false);
+            var aluno = await _repo.GetAlunoByIdAsync(id, false);
             if (aluno == null) return BadRequest("O Aluno não encontrado.");
 
             _mapper.Map(model, aluno);
@@ -87,9 +88,9 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var aluno = _repo.GetAlunoById(id, false);
+            var aluno = await _repo.GetAlunoByIdAsync(id, false);
             if (aluno == null) return BadRequest("O Aluno não encontrado.");
 
             _repo.Delete(aluno);

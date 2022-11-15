@@ -1,4 +1,5 @@
 ﻿using smartSchool.API.Models;
+using System.Threading.Tasks;
 
 namespace smartSchool.API.Data
 {
@@ -14,11 +15,11 @@ namespace smartSchool.API.Data
 
         // Escopo Alunos
 
-        Aluno[] GetAlunos(bool incluirProfessor);
+        Task<Aluno[]> GetAlunosAsync(bool incluirProfessor);
 
-        Aluno[] GetAlunosByDisciplinasId(int disciplinaId, bool incluirProfessor);
+        Task<Aluno[]> GetAlunosByDisciplinasIdAsync(int disciplinaId, bool incluirProfessor);
 
-        Aluno GetAlunoById(int alunoId, bool incluirProfessor);
+        Task<Aluno> GetAlunoByIdAsync(int alunoId, bool incluirProfessor);
 
         // Escopo Professor
 

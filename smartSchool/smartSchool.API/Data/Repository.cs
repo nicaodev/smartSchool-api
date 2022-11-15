@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using smartSchool.API.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace smartSchool.API.Data
 {
@@ -28,7 +29,7 @@ namespace smartSchool.API.Data
             _c.Update(entity);
         }
 
-        public Aluno[] GetAlunos(bool incluirProfessor)
+        public async Task<Aluno[]> GetAlunosAsync(bool incluirProfessor)
         {
             IQueryable<Aluno> query = _c.Alunos;
 
@@ -40,10 +41,10 @@ namespace smartSchool.API.Data
             }
             query = query.AsNoTracking().OrderBy(a => a.Id);
 
-            return query.ToArray();
+            return await query.ToArrayAsync();
         }
 
-        public Aluno[] GetAlunosByDisciplinasId(int disciplinaId, bool incluirProfessor)
+        public async Task<Aluno[]> GetAlunosByDisciplinasIdAsync(int disciplinaId, bool incluirProfessor)
         {
             IQueryable<Aluno> query = _c.Alunos;
 
@@ -57,10 +58,10 @@ namespace smartSchool.API.Data
                          .OrderBy(a => a.Id)
                          .Where(a => a.AlunosDisciplinas.Any(ad => ad.DisciplinaId == disciplinaId));
 
-            return query.ToArray();
+            return await query.ToArrayAsync();
         }
 
-        public Aluno GetAlunoById(int alunoId, bool incluirProfessor)
+        public async Task<Aluno> GetAlunoByIdAsync(int alunoId, bool incluirProfessor)
         {
             IQueryable<Aluno> query = _c.Alunos;
 
@@ -74,7 +75,7 @@ namespace smartSchool.API.Data
                          .OrderBy(a => a.Id)
                          .Where(a => a.Id == alunoId);
 
-            return query.FirstOrDefault();
+            return await query.FirstOrDefaultAsync();
         }
 
         public Professor[] GetProfessores(bool incluiAlunos)

@@ -15,7 +15,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:smartSchool.API.Controllers.AlunoController.GetById(System.Int32)">
+        <member name="M:smartSchool.API.Controllers.AlunoController.GetByIdAsync(System.Int32)">
             <summary>
             Método responsável por retornar apenas um único Aluno informando o ID
             </summary>
