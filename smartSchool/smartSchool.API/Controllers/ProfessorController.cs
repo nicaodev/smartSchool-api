@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using smartSchool.API.Data;
 using smartSchool.API.Models;
+using System.Threading.Tasks;
 
 namespace smartSchool.API.Controllers
 {
@@ -9,22 +11,24 @@ namespace smartSchool.API.Controllers
     public class ProfessorController : ControllerBase
     {
         private readonly IRepository _repo;
+        private readonly IMapper _mapper;
 
-        public ProfessorController(IRepository repo)
+        public ProfessorController(IRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_repo.GetProfessores(true));
+            return Ok(_repo.GetProfessoresAsync(true));
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var professor = _repo.GetProfessoreById(id, false);
+            var professor = await _repo.GetProfessoreByIdAsync(id, false);
 
             if (professor == null) return BadRequest("O Professor não encontrado.");
 
@@ -32,7 +36,7 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Professor professor)
+        public async Task<IActionResult> Post(Professor professor)
         {
             _repo.Add(professor);
             if (!_repo.SaveChanges()) return BadRequest("Professor não cadastrado.");
@@ -41,9 +45,9 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, Professor professor)
+        public async Task<IActionResult> Put(int id, Professor professor)
         {
-            var retornaProf = _repo.GetProfessoreById(id, false);
+            var retornaProf = await _repo.GetProfessoreByIdAsync(id, false);
             if (retornaProf == null) return BadRequest("O Professor não foi encontrado.");
 
             _repo.Update(professor);
@@ -54,9 +58,9 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, Professor professor)
+        public async Task<IActionResult> Patch(int id, Professor professor)
         {
-            var retornaProf = _repo.GetProfessoreById(id, false);
+            var retornaProf = await _repo.GetProfessoreByIdAsync(id, false);
             if (retornaProf == null) return BadRequest("O Professor não encontrado.");
 
             _repo.Update(professor);
@@ -67,9 +71,9 @@ namespace smartSchool.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var professor = _repo.GetProfessoreById(id, false);
+            var professor = await _repo.GetProfessoreByIdAsync(id, false);
             if (professor == null) return BadRequest("O Professor não foi encontrado.");
 
             _repo.Delete(professor);

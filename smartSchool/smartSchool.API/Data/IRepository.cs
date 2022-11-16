@@ -23,10 +23,10 @@ namespace smartSchool.API.Data
 
         // Escopo Professor
 
-        Professor[] GetProfessores(bool incluiAlunos);
+        Task<Professor[]> GetProfessoresAsync(bool incluiAlunos);
 
-        Professor[] GetProfessoresByDisciplinasId(int disciplinaId, bool incluirAluno);
+        Task<Professor[]> GetProfessoresByDisciplinasIdAsync(int disciplinaId, bool incluirAluno);
 
-        Professor GetProfessoreById(int professorId, bool incluirAluno);
+        Task<Professor> GetProfessoreByIdAsync(int professorId, bool incluirAluno);
     }
 }
