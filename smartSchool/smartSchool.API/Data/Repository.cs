@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using smartSchool.API.Helpers;
 using smartSchool.API.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,6 +43,22 @@ namespace smartSchool.API.Data
             query = query.AsNoTracking().OrderBy(a => a.Id);
 
             //return await query.ToListAsync();
+
+            if (!string.IsNullOrEmpty(pageParams.Nome))
+            {
+                query = query.Where(
+                    aluno => aluno.Nome
+                    .ToUpper()
+                    .Contains(pageParams.Nome.ToUpper()) ||
+                    aluno.Sobrenome
+                    .ToUpper()
+                    .Contains(pageParams.Nome));
+            }
+            if (pageParams.Matricula > 0)
+                query = query.Where(aluno => aluno.Matricula == pageParams.Matricula);
+
+            if (pageParams.Ativo != null)
+                query = query.Where(aluno => aluno.Ativo == (pageParams.Ativo != 0));
 
             return await PageList<Aluno>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }

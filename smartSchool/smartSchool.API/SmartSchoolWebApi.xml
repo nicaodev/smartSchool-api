@@ -6,7 +6,6 @@
     <members>
         <member name="T:smartSchool.API.Controllers.AlunoController">
             <summary>
-            
             </summary>
         </member>
         <member name="M:smartSchool.API.Controllers.AlunoController.Get">

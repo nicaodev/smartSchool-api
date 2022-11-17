@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace smartSchool.API.Controllers
 {/// <summary>
-/// 
+///
 /// </summary>
     [ApiController]
     [Route("api/[controller]")]
@@ -23,6 +23,7 @@ namespace smartSchool.API.Controllers
             _repo = repo;
             _mapper = map;
         }
+
         /// <summary>
         /// Retorna todos os alunos
         /// </summary>
@@ -40,6 +41,7 @@ namespace smartSchool.API.Controllers
 
             return Ok(alunosDto);
         }
+
         /// <summary>
         /// Método responsável por retornar apenas um único Aluno informando o ID
         /// </summary>

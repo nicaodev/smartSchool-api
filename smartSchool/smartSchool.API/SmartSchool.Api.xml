@@ -5,9 +5,9 @@
     </assembly>
     <members>
         <member name="T:smartSchool.API.Controllers.AlunoController">
-            <summary>
+             <summary>
             
-            </summary>
+             </summary>
         </member>
         <member name="M:smartSchool.API.Controllers.AlunoController.Get(smartSchool.API.Helpers.PageParams)">
             <summary>

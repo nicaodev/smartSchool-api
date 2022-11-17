@@ -1,6 +1,5 @@
 ﻿using smartSchool.API.Helpers;
 using smartSchool.API.Models;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace smartSchool.API.Data

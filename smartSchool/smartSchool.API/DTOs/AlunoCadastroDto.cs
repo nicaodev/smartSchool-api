@@ -1,6 +1,4 @@
-﻿using smartSchool.API.Models;
-using System.Collections.Generic;
-using System;
+﻿using System;
 
 namespace smartSchool.API.DTOs
 {

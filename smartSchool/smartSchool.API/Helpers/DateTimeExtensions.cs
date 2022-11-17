@@ -14,7 +14,6 @@ namespace smartSchool.API.Helpers
                 idade--;
 
             return idade;
-
         }
     }
 }
