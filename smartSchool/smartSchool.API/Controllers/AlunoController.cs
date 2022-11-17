@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using smartSchool.API.Data;
 using smartSchool.API.DTOs;
+using smartSchool.API.Helpers;
 using smartSchool.API.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,10 +28,17 @@ namespace smartSchool.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery] PageParams pageParams)
         {
-            var alunos = await _repo.GetAlunosAsync(true);
-            return Ok(_mapper.Map<IEnumerable<AlunoDto>>(alunos));
+            //http://localhost:41200/api/aluno?pageNumber=1&pageSize=4
+
+            var alunos = await _repo.GetAlunosAsync(pageParams, true);
+
+            var alunosDto = _mapper.Map<IEnumerable<AlunoDto>>(alunos);
+
+            Response.AddPagination(alunos.CurrentPage, alunos.PageSize, alunos.TotalCount, alunos.TotalPages);
+
+            return Ok(alunosDto);
         }
         /// <summary>
         /// Método responsável por retornar apenas um único Aluno informando o ID

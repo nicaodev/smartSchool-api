@@ -1,4 +1,6 @@
-﻿using smartSchool.API.Models;
+﻿using smartSchool.API.Helpers;
+using smartSchool.API.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace smartSchool.API.Data
@@ -15,7 +17,7 @@ namespace smartSchool.API.Data
 
         // Escopo Alunos
 
-        Task<Aluno[]> GetAlunosAsync(bool incluirProfessor);
+        Task<PageList<Aluno>> GetAlunosAsync(PageParams pageParams, bool incluirProfessor);
 
         Task<Aluno[]> GetAlunosByDisciplinasIdAsync(int disciplinaId, bool incluirProfessor);
 

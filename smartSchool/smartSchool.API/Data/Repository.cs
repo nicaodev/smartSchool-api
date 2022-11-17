@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using smartSchool.API.Helpers;
 using smartSchool.API.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,7 +31,7 @@ namespace smartSchool.API.Data
             _c.Update(entity);
         }
 
-        public async Task<Aluno[]> GetAlunosAsync(bool incluirProfessor)
+        public async Task<PageList<Aluno>> GetAlunosAsync(PageParams pageParams, bool incluirProfessor)
         {
             IQueryable<Aluno> query = _c.Alunos;
 
@@ -41,7 +43,9 @@ namespace smartSchool.API.Data
             }
             query = query.AsNoTracking().OrderBy(a => a.Id);
 
-            return await query.ToArrayAsync();
+            //return await query.ToListAsync();
+
+            return await PageList<Aluno>.CreateAsync(query, pageParams.PageNumber, pageParams.PageSize);
         }
 
         public async Task<Aluno[]> GetAlunosByDisciplinasIdAsync(int disciplinaId, bool incluirProfessor)
