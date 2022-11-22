@@ -43,13 +43,15 @@ namespace smartSchool.API
                         Title = "SmartSchool Api",
                         Version = "1.0",
                         TermsOfService = new Uri("https://github.com/nicaodev"),
-                        Description = "Descrição etc etc"
+                        Description = "Descriï¿½ï¿½o etc etc"
                     });
                 var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlCommentsPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
 
                 opt.IncludeXmlComments(xmlCommentsPath);
             });
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +63,7 @@ namespace smartSchool.API
             }
 
             app.UseRouting();
+            app.UseCors(x=> x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseSwagger().
                 UseSwaggerUI(opt =>
                 {
