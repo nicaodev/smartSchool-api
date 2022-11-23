@@ -33,6 +33,16 @@ namespace smartSchool.API.Controllers
             if (professor == null) return BadRequest("O Professor não encontrado.");
 
             return Ok(professor);
+        } 
+        
+        [HttpGet("byAluno/{alunoId}")]
+        public async Task<IActionResult> GetByAlunoId(int alunoId)
+        {
+            var professor = await _repo.GetProfessoreByAlunoIdAsync(alunoId, true);
+
+            if (professor == null) return BadRequest("O Professor não encontrado.");
+
+            return Ok(professor);
         }
 
         [HttpPost]

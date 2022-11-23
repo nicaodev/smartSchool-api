@@ -29,5 +29,6 @@ namespace smartSchool.API.Data
         Task<Professor[]> GetProfessoresByDisciplinasIdAsync(int disciplinaId, bool incluirAluno);
 
         Task<Professor> GetProfessoreByIdAsync(int professorId, bool incluirAluno);
+        Task<Professor[]> GetProfessoreByAlunoIdAsync(int alunoId, bool incluirAluno);
     }
 }
