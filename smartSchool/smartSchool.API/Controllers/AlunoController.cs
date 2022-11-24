@@ -97,6 +97,22 @@ namespace smartSchool.API.Controllers
             return Created($"/api/aluno/{model.Id}", _mapper.Map<AlunoDto>(aluno));
         }
 
+        [HttpPatch("{id}/trocarEstado")]
+        public async Task<IActionResult> trocarEstado(int id, TrocaEstadoDto trocaEstado)
+        {
+            var aluno = await _repo.GetAlunoByIdAsync(id, false);
+            aluno.Ativo = trocaEstado.Estado;
+            if (aluno == null) return BadRequest("O Aluno não encontrado.");
+
+
+
+            _repo.Update(aluno);
+            if (!_repo.SaveChanges()) return BadRequest("Aluno não atualizado.");
+            {
+                var temp = aluno.Ativo ? "ativado" : "desativado";
+                return Ok(new { message = $"Aluno {temp} com sucesso" });
+            }
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
