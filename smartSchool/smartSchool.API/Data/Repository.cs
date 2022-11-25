@@ -143,7 +143,7 @@ namespace smartSchool.API.Data
             return await query.FirstOrDefaultAsync();
         }
 
-         public async Task<Professor[]> GetProfessoreByAlunoIdAsync(int alunoId, bool incluirAluno)
+        public async Task<Professor[]> GetProfessoreByAlunoIdAsync(int alunoId, bool incluirAluno)
         {
             IQueryable<Professor> query = _c.Professores;
 
@@ -153,7 +153,7 @@ namespace smartSchool.API.Data
                              .ThenInclude(b => b.AlunosDisciplinas)
                              .ThenInclude(c => c.Aluno);
             }
-            query = query.AsNoTracking().OrderBy(a => a.Id).Where(aluno => aluno.Disciplinas.Any(d=>d.AlunosDisciplinas.Any(ad=> ad.AlunoId == alunoId)));
+            query = query.AsNoTracking().OrderBy(a => a.Id).Where(aluno => aluno.Disciplinas.Any(d => d.AlunosDisciplinas.Any(ad => ad.AlunoId == alunoId)));
 
             return await query.ToArrayAsync();
         }

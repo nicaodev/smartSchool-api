@@ -22,13 +22,13 @@ namespace smartSchool.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(_repo.GetProfessoresAsync(true));
+            return Ok( await _repo.GetProfessoresAsync(true));
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var professor = await _repo.GetProfessoreByIdAsync(id, false);
+            var professor = await _repo.GetProfessoreByIdAsync(id, true);
 
             if (professor == null) return BadRequest("O Professor não encontrado.");
 

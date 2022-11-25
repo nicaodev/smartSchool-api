@@ -4,6 +4,7 @@ using smartSchool.API.Data;
 using smartSchool.API.DTOs;
 using smartSchool.API.Helpers;
 using smartSchool.API.Models;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -58,7 +59,19 @@ namespace smartSchool.API.Controllers
 
             return Ok(alunoDto);
         }
-
+        [HttpGet("ByDisciplina/{disciplinaId}")]
+        public async Task<IActionResult> GetByDisciplinaId(int disciplinaId)
+        {
+            try
+            {
+                var result = await _repo.GetAlunosByDisciplinasIdAsync(disciplinaId, false);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Erro: {ex.Message}");
+            }
+        }
         [HttpPost]
         public async Task<IActionResult> Post(AlunoCadastroDto model)
         {
